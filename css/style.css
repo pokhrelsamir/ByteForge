@@ -1,0 +1,1229 @@
+/* =========================================================
+   ByteForge
+   Number System Conversion Toolkit
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   01. Root & Reset
+   --------------------------------------------------------- */
+
+:root {
+    --bg: #080b10;
+    --surface: #0e131a;
+    --surface-raised: #121922;
+    --surface-hover: #171f29;
+
+    --border: #202a35;
+    --border-strong: #2d3a47;
+
+    --text: #edf2f7;
+    --text-soft: #a5b0bc;
+    --text-muted: #667382;
+
+    --accent: #72e6a4;
+    --accent-soft: rgba(114, 230, 164, 0.10);
+    --accent-border: rgba(114, 230, 164, 0.35);
+
+    --danger: #ff7d86;
+    --danger-soft: rgba(255, 125, 134, 0.10);
+
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+    --container: 1180px;
+
+    --font-ui:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    --font-mono:
+        "JetBrains Mono",
+        "Cascadia Code",
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(114, 230, 164, 0.07),
+            transparent 35%
+        ),
+        var(--bg);
+
+    color: var(--text);
+    font-family: var(--font-ui);
+    line-height: 1.5;
+
+    -webkit-font-smoothing: antialiased;
+}
+
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+
+/* ---------------------------------------------------------
+   02. Layout
+   --------------------------------------------------------- */
+
+.container {
+    width: min(
+        calc(100% - 40px),
+        var(--container)
+    );
+
+    margin-inline: auto;
+}
+
+
+/* ---------------------------------------------------------
+   03. Header
+   --------------------------------------------------------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: rgba(8, 11, 16, 0.88);
+    border-bottom: 1px solid var(--border);
+
+    backdrop-filter: blur(16px);
+}
+
+
+.header-inner {
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+}
+
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    color: var(--text);
+    text-decoration: none;
+}
+
+
+.brand-mark {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--accent-border);
+    border-radius: 9px;
+
+    background: var(--accent-soft);
+
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+
+    letter-spacing: -0.04em;
+}
+
+
+.brand strong,
+.brand small {
+    display: block;
+}
+
+
+.brand strong {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    letter-spacing: -0.02em;
+}
+
+
+.brand small {
+    margin-top: 2px;
+
+    color: var(--text-muted);
+
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+
+.header-button {
+    padding: 9px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+
+    background: transparent;
+    color: var(--text-soft);
+
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+
+    transition:
+        background 160ms ease,
+        color 160ms ease,
+        border-color 160ms ease;
+}
+
+
+.header-button:hover {
+    background: var(--surface-hover);
+    border-color: var(--border-strong);
+    color: var(--text);
+}
+
+
+/* ---------------------------------------------------------
+   04. Hero
+   --------------------------------------------------------- */
+
+.hero {
+    position: relative;
+
+    padding: 92px 0 72px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 50px;
+}
+
+
+.hero::before {
+    content: "01001100 01000110 01001111 01010010";
+
+    position: absolute;
+    top: 30px;
+    right: 0;
+
+    color: rgba(114, 230, 164, 0.035);
+
+    font-family: var(--font-mono);
+    font-size: clamp(2rem, 5vw, 5rem);
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+
+    pointer-events: none;
+}
+
+
+.hero-copy {
+    position: relative;
+    z-index: 1;
+
+    max-width: 730px;
+}
+
+
+.eyebrow,
+.section-label {
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+}
+
+
+.hero h1 {
+    margin-top: 18px;
+
+    font-size: clamp(
+        2.7rem,
+        7vw,
+        5.8rem
+    );
+
+    line-height: 0.98;
+    letter-spacing: -0.065em;
+
+    font-weight: 750;
+}
+
+
+.hero h1 span {
+    display: block;
+
+    color: var(--text-muted);
+}
+
+
+.hero p {
+    max-width: 620px;
+
+    margin-top: 26px;
+
+    color: var(--text-soft);
+
+    font-size: 1rem;
+}
+
+
+.base-strip {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 100px;
+}
+
+
+.base-strip span {
+    padding: 10px 12px;
+
+    border-left: 1px solid var(--border);
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+
+    transition:
+        color 160ms ease,
+        border-color 160ms ease;
+}
+
+
+.base-strip span:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------
+   05. Workspace
+   --------------------------------------------------------- */
+
+.workspace {
+    display: grid;
+
+    grid-template-columns:
+        minmax(280px, 0.8fr)
+        minmax(0, 1.5fr);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+
+    background: var(--surface);
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow);
+}
+
+
+.input-panel,
+.results-panel {
+    padding: 32px;
+}
+
+
+.input-panel {
+    border-right: 1px solid var(--border);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.015),
+            transparent
+        );
+}
+
+
+.section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 28px;
+}
+
+
+.section-heading h2 {
+    margin-top: 5px;
+
+    font-size: 1.05rem;
+    font-weight: 650;
+
+    letter-spacing: -0.02em;
+}
+
+
+/* ---------------------------------------------------------
+   06. Status
+   --------------------------------------------------------- */
+
+.status {
+    padding: 5px 8px;
+
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+}
+
+
+.status.success {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+
+
+.status.error {
+    border-color: rgba(255, 125, 134, 0.35);
+    background: var(--danger-soft);
+    color: var(--danger);
+}
+
+
+/* ---------------------------------------------------------
+   07. Form Controls
+   --------------------------------------------------------- */
+
+.input-panel label {
+    display: block;
+
+    margin: 20px 0 8px;
+
+    color: var(--text-soft);
+
+    font-size: 0.72rem;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+}
+
+
+.input-shell {
+    position: relative;
+}
+
+
+.input-shell input,
+.input-panel select {
+    width: 100%;
+
+    min-height: 52px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+
+    background: #090d12;
+    color: var(--text);
+
+    transition:
+        border-color 160ms ease,
+        background 160ms ease,
+        box-shadow 160ms ease;
+}
+
+
+.input-shell input {
+    padding: 0 48px 0 15px;
+
+    font-family: var(--font-mono);
+    font-size: 1rem;
+}
+
+
+.input-shell input::placeholder {
+    color: var(--text-muted);
+}
+
+
+.input-shell input:hover,
+.input-panel select:hover {
+    border-color: var(--border-strong);
+}
+
+
+.input-shell input:focus,
+.input-panel select:focus {
+    border-color: var(--accent-border);
+
+    background: #0b1117;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(114, 230, 164, 0.06);
+
+    outline: none;
+}
+
+
+.input-panel select {
+    padding: 0 14px;
+
+    appearance: none;
+
+    background-image:
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            var(--text-muted) 50%
+        ),
+        linear-gradient(
+            135deg,
+            var(--text-muted) 50%,
+            transparent 50%
+        );
+
+    background-position:
+        calc(100% - 18px) 22px,
+        calc(100% - 13px) 22px;
+
+    background-size:
+        5px 5px,
+        5px 5px;
+
+    background-repeat: no-repeat;
+}
+
+
+.input-shell button {
+    position: absolute;
+
+    top: 50%;
+    right: 8px;
+
+    width: 32px;
+    height: 32px;
+
+    transform: translateY(-50%);
+
+    border: 0;
+    border-radius: 6px;
+
+    background: transparent;
+    color: var(--text-muted);
+
+    font-size: 1.25rem;
+
+    transition:
+        background 160ms ease,
+        color 160ms ease;
+}
+
+
+.input-shell button:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+}
+
+
+/* ---------------------------------------------------------
+   08. Convert Button
+   --------------------------------------------------------- */
+
+.convert-button {
+    width: 100%;
+
+    min-height: 52px;
+
+    margin-top: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 16px;
+
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-sm);
+
+    background: var(--accent);
+    color: #07110b;
+
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+
+    letter-spacing: 0.03em;
+
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        background 160ms ease;
+}
+
+
+.convert-button span {
+    font-size: 1.1rem;
+}
+
+
+.convert-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(114, 230, 164, 0.12);
+}
+
+
+.convert-button:active {
+    transform: translateY(0);
+}
+
+
+/* ---------------------------------------------------------
+   09. Errors
+   --------------------------------------------------------- */
+
+.error-message {
+    min-height: 20px;
+
+    margin-top: 12px;
+
+    color: var(--danger);
+
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+}
+
+
+/* ---------------------------------------------------------
+   10. Result Cards
+   --------------------------------------------------------- */
+
+.result-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+
+.result-card {
+    position: relative;
+
+    min-height: 155px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 18px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+
+    background: var(--surface-raised);
+
+    overflow: hidden;
+
+    transition:
+        transform 160ms ease,
+        border-color 160ms ease,
+        background 160ms ease;
+}
+
+
+.result-card::after {
+    content: "";
+
+    position: absolute;
+
+    right: -20px;
+    bottom: -20px;
+
+    width: 80px;
+    height: 80px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 50%;
+
+    opacity: 0.45;
+}
+
+
+.result-card:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--border-strong);
+    background: var(--surface-hover);
+}
+
+
+.result-card > span {
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+}
+
+
+.result-card strong {
+    position: relative;
+    z-index: 1;
+
+    display: block;
+
+    max-width: 100%;
+
+    margin: 16px 0;
+
+    overflow-wrap: anywhere;
+
+    color: var(--text);
+
+    font-family: var(--font-mono);
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+
+    line-height: 1.25;
+}
+
+
+.result-card small {
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+
+    letter-spacing: 0.08em;
+}
+
+
+.copy-button {
+    position: absolute;
+
+    right: 12px;
+    top: 12px;
+
+    padding: 5px 7px;
+
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    background: transparent;
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 0.56rem;
+
+    opacity: 0;
+
+    transition:
+        opacity 160ms ease,
+        color 160ms ease,
+        border-color 160ms ease;
+}
+
+
+.result-card:hover .copy-button {
+    opacity: 1;
+}
+
+
+.copy-button:hover {
+    border-color: var(--accent-border);
+    color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------
+   11. Content Sections
+   --------------------------------------------------------- */
+
+.explanation-section,
+.binary-section,
+.history-section {
+    margin-top: 80px;
+}
+
+
+.steps-container,
+.binary-view,
+.history-container {
+    border-top: 1px solid var(--border);
+}
+
+
+.step {
+    display: grid;
+
+    grid-template-columns: 52px 1fr;
+
+    min-height: 58px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.step > span {
+    display: grid;
+    place-items: center;
+
+    border-right: 1px solid var(--border);
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+}
+
+
+.step code {
+    display: flex;
+    align-items: center;
+
+    padding: 15px 18px;
+
+    color: var(--text-soft);
+
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+
+    overflow-x: auto;
+}
+
+
+/* ---------------------------------------------------------
+   12. Binary Visualization
+   --------------------------------------------------------- */
+
+.binary-view {
+    padding: 28px 0;
+
+    overflow-x: auto;
+}
+
+
+.bit-row {
+    display: flex;
+
+    min-width: max-content;
+
+    gap: 5px;
+}
+
+
+.bit {
+    width: 40px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--border);
+    border-radius: 6px;
+
+    background: var(--surface);
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+
+.bit.active {
+    border-color: var(--accent-border);
+
+    background: var(--accent-soft);
+
+    color: var(--accent);
+
+    box-shadow:
+        inset 0 -2px 0
+        rgba(114, 230, 164, 0.25);
+}
+
+
+/* ---------------------------------------------------------
+   13. History
+   --------------------------------------------------------- */
+
+.history-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.history-item {
+    width: 100%;
+
+    min-height: 64px;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 12px 16px;
+
+    border: 0;
+    border-bottom: 1px solid var(--border);
+
+    background: transparent;
+
+    color: var(--text);
+
+    text-align: left;
+
+    transition:
+        background 160ms ease;
+}
+
+
+.history-item:hover {
+    background: var(--surface-hover);
+}
+
+
+.history-item > span {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+}
+
+
+.history-item > span:last-child {
+    text-align: right;
+}
+
+
+.history-item small {
+    color: var(--text-muted);
+
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+}
+
+
+.history-item strong {
+    color: var(--accent);
+
+    font-family: var(--font-mono);
+}
+
+
+/* ---------------------------------------------------------
+   14. Empty State
+   --------------------------------------------------------- */
+
+.empty-state {
+    padding: 28px 16px;
+
+    border-bottom: 1px solid var(--border);
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+
+    text-align: center;
+}
+
+
+/* ---------------------------------------------------------
+   15. Footer
+   --------------------------------------------------------- */
+
+.site-footer {
+    margin-top: 100px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.footer-inner {
+    min-height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: var(--text-muted);
+
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+
+    letter-spacing: 0.1em;
+}
+
+
+/* ---------------------------------------------------------
+   16. Selection
+   --------------------------------------------------------- */
+
+::selection {
+    background: rgba(114, 230, 164, 0.2);
+    color: var(--text);
+}
+
+
+/* ---------------------------------------------------------
+   17. Scrollbar
+   --------------------------------------------------------- */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+
+    background: var(--border-strong);
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3b4a58;
+}
+
+
+/* ---------------------------------------------------------
+   18. Responsive — Tablet
+   --------------------------------------------------------- */
+
+@media (max-width: 850px) {
+
+    .hero {
+        padding-top: 70px;
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .base-strip {
+        flex-direction: row;
+        width: 100%;
+    }
+
+
+    .base-strip span {
+        flex: 1;
+
+        border-left: 0;
+        border-bottom: 1px solid var(--border);
+
+        text-align: center;
+    }
+
+
+    .workspace {
+        grid-template-columns: 1fr;
+    }
+
+
+    .input-panel {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   19. Responsive — Mobile
+   --------------------------------------------------------- */
+
+@media (max-width: 560px) {
+
+    .container {
+        width: min(
+            calc(100% - 24px),
+            var(--container)
+        );
+    }
+
+
+    .header-inner {
+        min-height: 68px;
+    }
+
+
+    .header-button {
+        padding: 8px 10px;
+
+        font-size: 0.62rem;
+    }
+
+
+    .brand small {
+        display: none;
+    }
+
+
+    .hero {
+        padding: 56px 0 48px;
+    }
+
+
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+
+
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+
+    .input-panel,
+    .results-panel {
+        padding: 22px 18px;
+    }
+
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .result-card {
+        min-height: 135px;
+    }
+
+
+    .copy-button {
+        opacity: 1;
+    }
+
+
+    .explanation-section,
+    .binary-section,
+    .history-section {
+        margin-top: 60px;
+    }
+
+
+    .step {
+        grid-template-columns: 40px 1fr;
+    }
+
+
+    .step code {
+        font-size: 0.65rem;
+    }
+
+
+    .bit {
+        width: 34px;
+        height: 42px;
+    }
+
+
+    .footer-inner {
+        flex-direction: column;
+        justify-content: center;
+
+        gap: 5px;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   20. Reduced Motion
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+
+}
